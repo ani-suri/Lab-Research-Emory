@@ -1,9 +1,8 @@
+set search_path to mimiciii; 
 -- This code extracts explicit sepsis using ICD-9 diagnosis codes
 -- That is, the two codes 995.92 (severe sepsis) or 785.52 (septic shock)
 -- These codes are extremely specific to sepsis, but have very low sensitivity
 -- From Iwashyna et al. (vs. chart reviews): 100% PPV, 9.3% sens, 100% specificity
-
-set search_path to mimiciii;
 
 WITH co_dx AS
 (
@@ -19,7 +18,7 @@ WITH co_dx AS
     		WHEN icd9_code = '78552' THEN 1
       ELSE 0 END
     ) AS septic_shock
-  from diagnoses_icd
+  FROM diagnoses_icd
   GROUP BY hadm_id
 )
 select
